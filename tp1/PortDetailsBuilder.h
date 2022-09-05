@@ -5,8 +5,6 @@
 class PortDetailsBuilder : public Builder<PortDetails *>
 {
 private:
-    uint8_t pinCount;
-
 public:
     PortDetailsBuilder();
     ~PortDetailsBuilder();
