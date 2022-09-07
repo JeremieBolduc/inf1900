@@ -41,11 +41,14 @@ int main() {
     DDRD = 0x00;
 
     STATE state = STATE::INIT_STATE;
-    Button button = Button(PIND, PD1);
-    Light light; 
+    Button button = Button(PIND, PD2);
+    Light light;
 
-    if (button.isPressed()) {
-        light.redLight(500);
+    while(true) {
+        if (button.isPressed()) {
+                        
+            light.redLight(500);
+        }
     }
     // while(true){
     //     // light.redLight(1000);

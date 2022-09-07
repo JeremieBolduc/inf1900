@@ -1,10 +1,5 @@
 #include "Button.h"
-
-Button::Button()
-{
-    _port = PIND;
-    _pinNumber = PD1;
-}
+constexpr uint8_t DELAY = 25;
 
 Button::Button(volatile uint8_t &port, uint8_t pinNumber)
 {
@@ -15,10 +10,25 @@ Button::Button(volatile uint8_t &port, uint8_t pinNumber)
 Button::~Button() {}
 
 bool Button::isPressed() {
-    if (PIND && 1 << _pinNumber){
-        _delay_ms(25);
-        if (PIND && 1 << _pinNumber)
-            return true;
+    return PIND & (1 << _pinNumber);
+}
+
+bool Button::isDebounced() {
+    if (isPressed()){
+        _delay_ms(DELAY);
+        return isPressed();
     }
+
     return false;
+}
+
+bool Button::wasReleased() {
+    if (isPressed()){
+        _delay_ms(DELAY);
+    }
+
+    return !isPressed();
+
+    // while ( isPressed ());
+    // return true;
 }
